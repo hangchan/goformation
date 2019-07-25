@@ -79,7 +79,7 @@ var EncoderIntrinsics = map[string]intrinsics.IntrinsicHandler{
 	"Fn::GetAZs":      strWrap(GetAZs),
 	"Fn::ImportValue": strWrap(ImportValue),
 	"Fn::Join":        str2AWrap(Join),
-	"Fn::Select":      str2AWrap(Select),
+	"Fn::Select":      str2Wrap(Select),
 	"Fn::Split":       str2Wrap(Split),
 	"Fn::Sub":         strWrap(Sub),
 	"Ref":             strWrap(Ref),
@@ -155,8 +155,11 @@ func Join(delimiter interface{}, values []string) string {
 }
 
 // Select returns a single object from a list of objects by index.
-func Select(index interface{}, list []string) string {
+/*func Select(index interface{}, list []string) string {
 	return encode(fmt.Sprintf(`{ "Fn::Select": [ "%v", [ "%v" ] ] }`, index, strings.Trim(strings.Join(list, `", "`), `, "`)))
+}*/
+func Select(index, list interface{}) string {
+	return encode(fmt.Sprintf(`{ "Fn::Select": [ "%v", "%v" ] }`, index, list))
 }
 
 // ([]str) -> str
